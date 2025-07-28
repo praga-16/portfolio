@@ -375,8 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
             card.addEventListener('mouseenter', () => {
                 card.style.transform = 'translateY(-10px)';
             });
-
-
+            
             card.addEventListener('mouseleave', () => {
                 card.style.transform = 'translateY(0)';
             });
@@ -833,9 +832,10 @@ document.addEventListener('DOMContentLoaded', function() {
         showNotification(`[DEMO_LAUNCH] ${projectName} demo initialized. This is a portfolio demonstration.`, 'info');
     };
     
-    window.showGithub = function(projectName) {
-        showNotification(`[REPOSITORY_ACCESS] ${projectName} GitHub repository. Visit github.com/praga-16`, 'info');
-    };
+window.showGithub = function() {
+    window.open("https://github.com/praga-16/TAMIL-ARTICLE-SENTIMENT-ANALYSIS-LEVERAGING-BERT-FOR-ACCURACY", "_blank");
+};
+
     
     // Notification System (Fixed)
     function showNotification(message, type = 'info') {
@@ -926,6 +926,3 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('[SYSTEM_INITIALIZED] Black animated portfolio loaded successfully!');
 });
-window.showGithub = function() {
-    window.open("https://github.com/praga-16/TAMIL-ARTICLE-SENTIMENT-ANALYSIS-LEVERAGING-BERT-FOR-ACCURACY", "_blank");
-};
