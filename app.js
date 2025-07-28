@@ -375,9 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
             card.addEventListener('mouseenter', () => {
                 card.style.transform = 'translateY(-10px)';
             });
-            function showGithub() {
-  window.open("https://github.com/praga-16/TAMIL-ARTICLE-SENTIMENT-ANALYSIS-LEVERAGING-BERT-FOR-ACCURACY", "_blank");
-}
+
 
             card.addEventListener('mouseleave', () => {
                 card.style.transform = 'translateY(0)';
@@ -928,3 +926,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('[SYSTEM_INITIALIZED] Black animated portfolio loaded successfully!');
 });
+window.showGithub = function() {
+    window.open("https://github.com/praga-16/TAMIL-ARTICLE-SENTIMENT-ANALYSIS-LEVERAGING-BERT-FOR-ACCURACY", "_blank");
+};
