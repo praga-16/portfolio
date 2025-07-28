@@ -1,12 +1,12 @@
 // Application Data
 const portfolioData = {
   "personalInfo": {
-    "name": "Alex Johnson",
+    "name": "Pragatheesvaran A B",
     "title": "AI/ML Engineer & Full Stack Developer",
-    "location": "San Francisco, CA",
-    "email": "alex.johnson@email.com",
-    "phone": "+1 (555) 123-4567",
-    "bio": "Passionate AI/ML engineer with 5+ years of experience in developing intelligent systems, machine learning models, and full-stack applications. Specialized in natural language processing, computer vision, and conversational AI."
+    "location": "chennai",
+    "email": "pragatheesvaranab@gmail.com",
+    "phone": "+91 8220420788",
+    "bio": "Passionate AI/ML engineer with experience in developing intelligent systems, machine learning models, and full-stack applications. Specialized in natural language processing, computer vision, and conversational AI."
   },
   "skills": {
     "ai_ml": [
@@ -20,23 +20,15 @@ const portfolioData = {
     "frontend": [
       {"name": "React.js", "level": 90},
       {"name": "Next.js", "level": 85},
-      {"name": "JavaScript", "level": 92},
-      {"name": "TypeScript", "level": 88},
-      {"name": "Tailwind CSS", "level": 90},
       {"name": "HTML/CSS", "level": 95}
     ],
     "backend": [
       {"name": "Node.js", "level": 85},
-      {"name": "FastAPI", "level": 90},
       {"name": "Flask", "level": 88},
-      {"name": "PostgreSQL", "level": 82},
-      {"name": "MongoDB", "level": 80},
       {"name": "Docker", "level": 85}
     ],
     "tools": [
       {"name": "Git", "level": 95},
-      {"name": "AWS", "level": 82},
-      {"name": "Google Cloud", "level": 80},
       {"name": "Jupyter", "level": 92},
       {"name": "Figma", "level": 75},
       {"name": "Postman", "level": 88}
