@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pragatheesvaran A B - AI/ML Engineer</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-logo">
+            <div class="glitch-text" data-text="PRAGATHEESVARAN">PRAGATHEESVARAN</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Navigation -->
+    <nav class="floating-nav" id="floatingNav">
+        <div class="nav-logo">
+            <span class="glitch-text" data-text="P.A.B">P.A.B</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="#hero" class="nav-link" data-section="hero">Home</a></li>
+            <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+            <li><a href="#skills" class="nav-link" data-section="skills">Skills</a></li>
+            <li><a href="#projects" class="nav-link" data-section="projects">Projects</a></li>
+            <li><a href="#experience" class="nav-link" data-section="experience">Experience</a></li>
+            <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
+        </ul>
+        <button class="theme-toggle neon-button" id="themeToggle">🌓</button>
+    </nav>
+
+    <!-- Mouse Spotlight -->
+    <div class="mouse-spotlight" id="mouseSpotlight"></div>
+
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="matrix-rain" id="matrixRain"></div>
+        <canvas class="particle-canvas" id="particleCanvas"></canvas>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="glitch-text main-title" data-text="PRAGATHEESVARAN A B">PRAGATHEESVARAN A B</span>
+            </h1>
+            <div class="typing-container">
+                <span class="typing-prefix">></span>
+                <span class="typing-text" id="typingText"></span>
+                <span class="cursor-blink">_</span>
+            </div>
+            <p class="hero-subtitle glow-text">Passionate AI/ML Engineer with expertise in deep learning, natural language processing, and data science</p>
+            
+            <div class="hero-buttons">
+                <button class="neon-button primary" onclick="scrollToSection('projects')">
+                    <span>VIEW PROJECTS</span>
+                    <div class="button-ripple"></div>
+                </button>
+                <button class="neon-button secondary" onclick="scrollToSection('contact')">
+                    <span>CONTACT ME</span>
+                    <div class="button-ripple"></div>
+                </button>
+            </div>
+
+            <div class="social-icons">
+                <a href="https://github.com/praga-16" target="_blank" class="social-icon floating-icon">
+                    <span>GitHub</span>
+                </a>
+                <a href="https://linkedin.com/in/pragatheesvaran-ab" target="_blank" class="social-icon floating-icon">
+                    <span>LinkedIn</span>
+                </a>
+                <a href="mailto:pragatheesvaranab@gmail.com" class="social-icon floating-icon">
+                    <span>Email</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about parallax-section">
+        <div class="container">
+            <h2 class="section-title glitch-text" data-text="ABOUT_ME">ABOUT_ME</h2>
+            <div class="about-content">
+                <div class="about-text reveal-text">
+                    <p class="glow-text">Passionate AI/ML Engineer with strong foundation in machine learning, statistical analysis, and model deployment. Experienced in real-world projects involving NLP, forecasting, and data-driven decision making.</p>
+                    
+                    <div class="education-card neon-card">
+                        <h3 class="neon-text">EDUCATION.EXE</h3>
+                        <div class="education-item">
+                            <h4>B.Tech in Artificial Intelligence and Machine Learning</h4>
+                            <p>Saveetha Engineering College, Chennai</p>
+                            <p class="highlight-text">2021 – 2025 | CGPA: 7.5/10</p>
+                        </div>
+                    </div>
+
+                    <div class="certifications-card neon-card">
+                        <h3 class="neon-text">CERTIFICATIONS.EXE</h3>
+                        <ul class="cert-list">
+                            <li class="cert-item">Google IT Support – Google, 2023</li>
+                            <li class="cert-item">Crash Course on Python – Google, 2023</li>
+                            <li class="cert-item">Microsoft Power BI Data Analyst – 2025</li>
+                            <li class="cert-item">BCG Data Science Virtual Internship</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills parallax-section">
+        <div class="container">
+            <h2 class="section-title glitch-text" data-text="SKILLS.EXE">SKILLS.EXE</h2>
+            <div class="skills-grid">
+                <div class="skill-category floating-card">
+                    <h3 class="category-title neon-text">PROGRAMMING_LANGUAGES</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span class="skill-name">Python</span>
+                            <div class="skill-bar-container">
+                                <div class="skill-bar">
+                                    <div class="skill-progress neon-progress" data-width="90"></div>
+                                </div>
+                                <span class="skill-percent">90%</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">SQL</span>
+                            <div class="skill-bar-container">
+                                <div class="skill-bar">
+                                    <div class="skill-progress neon-progress" data-width="85"></div>
+                                </div>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">C</span>
+                            <div class="skill-bar-container">
+                                <div class="skill-bar">
+                                    <div class="skill-progress neon-progress" data-width="75"></div>
+                                </div>
+                                <span class="skill-percent">75%</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">R</span>
+                            <div class="skill-bar-container">
+                                <div class="skill-bar">
+                                    <div class="skill-progress neon-progress" data-width="60"></div>
+                                </div>
+                                <span class="skill-percent">60%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category floating-card">
+                    <h3 class="category-title neon-text">ML/DL_FRAMEWORKS</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span class="skill-name">TensorFlow</span>
+                            <div class="skill-bar-container">
+                                <div class="skill-bar">
+                                    <div class="skill-progress neon-progress" data-width="85"></div>
+                                </div>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">PyTorch</span>
+                            <div class="skill-bar-container">
+                                <div class="skill-bar">
+                                    <div class="skill-progress neon-progress" data-width="80"></div>
+                                </div>
+                                <span class="skill-percent">80%</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">scikit-learn</span>
+                            <div class="skill-bar-container">
+                                <div class="skill-bar">
+                                    <div class="skill-progress neon-progress" data-width="90"></div>
+                                </div>
+                                <span class="skill-percent">90%</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">BERT/NLP</span>
+                            <div class="skill-bar-container">
+                                <div class="skill-bar">
+                                    <div class="skill-progress neon-progress" data-width="85"></div>
+                                </div>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category floating-card">
+                    <h3 class="category-title neon-text">TOOLS_&_TECH</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span class="skill-name">Power BI</span>
+                            <div class="skill-bar-container">
+                                <div class="skill-bar">
+                                    <div class="skill-progress neon-progress" data-width="85"></div>
+                                </div>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Git</span>
+                            <div class="skill-bar-container">
+                                <div class="skill-bar">
+                                    <div class="skill-progress neon-progress" data-width="80"></div>
+                                </div>
+                                <span class="skill-percent">80%</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Docker</span>
+                            <div class="skill-bar-container">
+                                <div class="skill-bar">
+                                    <div class="skill-progress neon-progress" data-width="70"></div>
+                                </div>
+                                <span class="skill-percent">70%</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Apache Spark</span>
+                            <div class="skill-bar-container">
+                                <div class="skill-bar">
+                                    <div class="skill-progress neon-progress" data-width="75"></div>
+                                </div>
+                                <span class="skill-percent">75%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects parallax-section">
+        <div class="container">
+            <h2 class="section-title glitch-text" data-text="PROJECTS.EXE">PROJECTS.EXE</h2>
+            <div class="projects-grid">
+                <div class="project-card flip-card floating-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="project-header">
+                                <h3 class="neon-text">DEMAND_FORECASTING</h3>
+                                <div class="project-status">ACTIVE</div>
+                            </div>
+                            <div class="project-preview">
+                                <div class="code-lines">
+                                    <span># Loading retail data...</span>
+                                    <span class="highlight">model = XGBoost()</span>
+                                    <span># Training model...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <div class="project-details">
+                                <p>Developed a scalable forecasting pipeline using PySpark to predict product demand from retail sales data with XGBoost and Random Forest models.</p>
+                                <div class="tech-stack">
+                                    <span class="tech-tag">PySpark</span>
+                                    <span class="tech-tag">XGBoost</span>
+                                    <span class="tech-tag">Random Forest</span>
+                                    <span class="tech-tag">Power BI</span>
+                                </div>
+                                <div class="project-buttons">
+                                    <button class="neon-button small" onclick="showDemo('Demand Forecasting')">DEMO</button>
+                                    <button class="neon-button small secondary" onclick="showGithub('Demand Forecasting')">GITHUB</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card flip-card floating-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="project-header">
+                                <h3 class="neon-text">TAMIL_NLP_ANALYSIS</h3>
+                                <div class="project-status">COMPLETED</div>
+                            </div>
+                            <div class="project-preview">
+                                <div class="code-lines">
+                                    <span># BERT model loading...</span>
+                                    <span class="highlight">sentiment = analyze(text)</span>
+                                    <span># Tamil processing...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <div class="project-details">
+                                <p>Built and fine-tuned a BERT-based NLP model to classify sentiments in Tamil-language articles using Hugging Face Transformers.</p>
+                                <div class="tech-stack">
+                                    <span class="tech-tag">BERT</span>
+                                    <span class="tech-tag">Hugging Face</span>
+                                    <span class="tech-tag">Flask</span>
+                                    <span class="tech-tag">NLP</span>
+                                </div>
+                                <div class="project-buttons">
+                                    <button class="neon-button small" onclick="showDemo('Tamil NLP Analysis')">DEMO</button>
+                                    <button class="neon-button small secondary" onclick="showGithub('Tamil NLP Analysis')">GITHUB</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card flip-card floating-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="project-header">
+                                <h3 class="neon-text">CKD_DETECTION</h3>
+                                <div class="project-status">DEPLOYED</div>
+                            </div>
+                            <div class="project-preview">
+                                <div class="code-lines">
+                                    <span># Healthcare data...</span>
+                                    <span class="highlight">predict_disease()</span>
+                                    <span># ML Classification...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <div class="project-details">
+                                <p>Implemented classification models with scikit-learn on clinical patient datasets, focusing on feature selection and hyperparameter tuning.</p>
+                                <div class="tech-stack">
+                                    <span class="tech-tag">scikit-learn</span>
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Healthcare Data</span>
+                                </div>
+                                <div class="project-buttons">
+                                    <button class="neon-button small" onclick="showDemo('CKD Detection')">DEMO</button>
+                                    <button class="neon-button small secondary" onclick="showGithub('CKD Detection')">GITHUB</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card flip-card floating-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="project-header">
+                                <h3 class="neon-text">SALES_FORECASTING</h3>
+                                <div class="project-status">ACTIVE</div>
+                            </div>
+                            <div class="project-preview">
+                                <div class="code-lines">
+                                    <span># Time series data...</span>
+                                    <span class="highlight">forecast = ARIMA()</span>
+                                    <span># Prophet model...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <div class="project-details">
+                                <p>Used time-series forecasting techniques with ARIMA and Prophet to predict future sales across product categories.</p>
+                                <div class="tech-stack">
+                                    <span class="tech-tag">ARIMA</span>
+                                    <span class="tech-tag">Prophet</span>
+                                    <span class="tech-tag">Power BI</span>
+                                    <span class="tech-tag">Time Series</span>
+                                </div>
+                                <div class="project-buttons">
+                                    <button class="neon-button small" onclick="showDemo('Sales Forecasting')">DEMO</button>
+                                    <button class="neon-button small secondary" onclick="showGithub('Sales Forecasting')">GITHUB</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ML Demo Section -->
+    <section id="ml-demo" class="ml-demo parallax-section">
+        <div class="container">
+            <h2 class="section-title glitch-text" data-text="ML_DEMOS.EXE">ML_DEMOS.EXE</h2>
+            <div class="demo-grid">
+                <div class="demo-card neon-card floating-card">
+                    <h3 class="neon-text">SENTIMENT_ANALYZER</h3>
+                    <div class="demo-content">
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <span class="terminal-title">>>> sentiment_analyzer.py</span>
+                            </div>
+                            <div class="terminal-body">
+                                <textarea id="sentimentInput" placeholder="Enter text to analyze sentiment..." class="terminal-input"></textarea>
+                                <button id="analyzeSentiment" class="neon-button">
+                                    <span>ANALYZE</span>
+                                    <div class="button-ripple"></div>
+                                </button>
+                                <div id="sentimentResult" class="demo-result hidden"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="demo-card neon-card floating-card">
+                    <h3 class="neon-text">MODEL_PERFORMANCE</h3>
+                    <div class="demo-content">
+                        <div class="chart-container" style="position: relative; height: 300px;">
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience parallax-section">
+        <div class="container">
+            <h2 class="section-title glitch-text" data-text="EXPERIENCE.LOG">EXPERIENCE.LOG</h2>
+            <div class="timeline">
+                <div class="timeline-item floating-card">
+                    <div class="timeline-marker pulsing"></div>
+                    <div class="timeline-content neon-card">
+                        <div class="timeline-date">JAN-FEB 2023</div>
+                        <h3 class="neon-text">INTERN</h3>
+                        <h4>Axias Global Automation Group</h4>
+                        <ul class="experience-list">
+                            <li>Conducted operational analytics and contributed to optimization reports</li>
+                            <li>Gained exposure to automation systems and data flow pipelines</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item floating-card">
+                    <div class="timeline-marker pulsing"></div>
+                    <div class="timeline-content neon-card">
+                        <div class="timeline-date">2023</div>
+                        <h3 class="neon-text">INPLANT_TRAINING</h3>
+                        <h4>Data Analytics</h4>
+                        <ul class="experience-list">
+                            <li>Hands-on experience with Excel for data transformation, analysis, and visualization</li>
+                            <li>Built sample dashboards and statistical models for retail datasets</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item floating-card">
+                    <div class="timeline-marker pulsing"></div>
+                    <div class="timeline-content neon-card">
+                        <div class="timeline-date">ONGOING</div>
+                        <h3 class="neon-text">ACHIEVEMENTS.EXE</h3>
+                        <ul class="experience-list">
+                            <li>Completed JPMorgan Chase Software Engineering Virtual Program (Forage)</li>
+                            <li>Organized technical events at DRESTIN, Saveetha Engineering College</li>
+                            <li>Directed team for Tamil NLP-based sentiment project using Hugging Face Transformers</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact parallax-section">
+        <div class="container">
+            <h2 class="section-title glitch-text" data-text="CONTACT.EXE">CONTACT.EXE</h2>
+            <div class="contact-content">
+                <div class="contact-info neon-card floating-card">
+                    <h3 class="neon-text">CONNECTION_INFO</h3>
+                    <div class="contact-items">
+                        <div class="contact-item">
+                            <span class="contact-label">EMAIL:</span>
+                            <span class="contact-value glow-text">pragatheesvaranab@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">PHONE:</span>
+                            <span class="contact-value glow-text">+91 8220420788</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">LOCATION:</span>
+                            <span class="contact-value glow-text">Chennai, Tamil Nadu</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">LANGUAGES:</span>
+                            <span class="contact-value glow-text">Tamil (Native), English (Fluent)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="contact-form neon-card floating-card" id="contactForm">
+                    <h3 class="neon-text">SEND_MESSAGE</h3>
+                    <div class="form-group">
+                        <input type="text" class="neon-input" id="contactName" placeholder="YOUR_NAME" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="neon-input" id="contactEmail" placeholder="YOUR_EMAIL" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="neon-input" id="contactSubject" placeholder="SUBJECT" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="neon-input" id="contactMessage" rows="5" placeholder="YOUR_MESSAGE" required></textarea>
+                    </div>
+                    <button type="submit" class="neon-button full-width">
+                        <span>TRANSMIT_MESSAGE</span>
+                        <div class="button-ripple"></div>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Chatbot -->
+    <div class="ai-chatbot" id="aiChatbot">
+        <div class="chatbot-toggle pulsing-button" id="chatbotToggle">
+            <span class="chatbot-icon">🤖</span>
+        </div>
+        <div class="chatbot-window hidden" id="chatbotWindow">
+            <div class="chatbot-header">
+                <h4 class="neon-text">AI_ASSISTANT.EXE</h4>
+                <button class="chatbot-close" id="chatbotClose">×</button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="chatbot-message bot-message">
+                    <span class="message-prefix">[AI]:</span>
+                    <span>System initialized. I'm Pragatheesvaran's AI assistant. Query my database about skills, projects, and experience.</span>
+                </div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbotInputField" placeholder="Enter command..." class="neon-input">
+                <button id="chatbotSend" class="neon-button small">SEND</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Action Buttons -->
+    <div class="fab-menu">
+        <button class="fab-button" onclick="scrollToTop()">
+            <span>↑</span>
+        </button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
