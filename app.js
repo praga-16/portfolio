@@ -1,621 +1,453 @@
-// Portfolio JavaScript - Pragatheesvaran A B
+// Global Variables
+let currentTheme = 'dark';
+let particlesLoaded = false;
+let matrixAnimation = null;
+
+// Typewriter Text Array
+const typewriterTexts = [
+    'AI/ML Engineer',
+    'Data Scientist', 
+    'Python Developer',
+    'NLP Specialist',
+    'Deep Learning Expert'
+];
+
+// DOM Content Loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all components
-    initTypewriter();
-    initThemeToggle();
-    initSmoothScrolling();
-    initSkillBars();
-    initMLDemo();
-    initPerformanceChart();
-    initChatbot();
-    initContactForm();
-    initScrollAnimations();
+    initializeWebsite();
+});
+
+// Initialize Website
+function initializeWebsite() {
+    showLoadingScreen();
+    setTimeout(() => {
+        hideLoadingScreen();
+        initializeComponents();
+    }, 3000);
+}
+
+// Loading Screen Functions
+function showLoadingScreen() {
+    const loadingScreen = document.getElementById('loadingScreen');
+    loadingScreen.style.display = 'flex';
+}
+
+function hideLoadingScreen() {
+    const loadingScreen = document.getElementById('loadingScreen');
+    loadingScreen.style.opacity = '0';
+    setTimeout(() => {
+        loadingScreen.style.display = 'none';
+    }, 500);
+}
+
+// Initialize All Components
+function initializeComponents() {
+    initializeParticles();
+    initializeMatrixRain();
+    initializeTypewriter();
+    initializeSentimentAnalysis();
+    initializeChatbot();
+    initializeCharts();
+    initializeScrollAnimations();
+    initializeCustomCursor();
+    initializeThemeToggle();
+}
+
+// Particle.js Configuration
+function initializeParticles() {
+    if (typeof particlesJS !== 'undefined') {
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#00ffff' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: false },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#00ffff',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                },
+                modes: {
+                    repulse: { distance: 100, duration: 0.4 },
+                    push: { particles_nb: 4 }
+                }
+            },
+            retina_detect: true
+        });
+        particlesLoaded = true;
+    }
+}
+
+// Matrix Rain Effect
+function initializeMatrixRain() {
+    const canvas = document.getElementById('matrix-canvas');
+    const ctx = canvas.getContext('2d');
     
-    // Typewriter Effect for Hero Section
-    function initTypewriter() {
-        const texts = [
-            'AI/ML Engineer',
-            'Data Scientist',
-            'Python Developer',
-            'NLP Specialist'
-        ];
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+    const matrixArray = matrix.split("");
+    
+    const fontSize = 15;
+    const columns = canvas.width / fontSize;
+    const drops = [];
+    
+    for (let x = 0; x < columns; x++) {
+        drops[x] = 1;
+    }
+    
+    function drawMatrix() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
         
-        let textIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        const typingElement = document.getElementById('typingText');
-        const typingSpeed = 100;
-        const deletingSpeed = 50;
-        const pauseTime = 2000;
+        ctx.fillStyle = '#00ff00';
+        ctx.font = fontSize + 'px monospace';
         
-        function typeWriter() {
-            const currentText = texts[textIndex];
+        for (let i = 0; i < drops.length; i++) {
+            const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
             
-            if (isDeleting) {
-                typingElement.textContent = currentText.substring(0, charIndex - 1);
-                charIndex--;
-                
-                if (charIndex === 0) {
-                    isDeleting = false;
-                    textIndex = (textIndex + 1) % texts.length;
-                    setTimeout(typeWriter, 500);
-                } else {
-                    setTimeout(typeWriter, deletingSpeed);
-                }
-            } else {
-                typingElement.textContent = currentText.substring(0, charIndex + 1);
-                charIndex++;
-                
-                if (charIndex === currentText.length) {
-                    isDeleting = true;
-                    setTimeout(typeWriter, pauseTime);
-                } else {
-                    setTimeout(typeWriter, typingSpeed);
-                }
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
+    }
+    
+    matrixAnimation = setInterval(drawMatrix, 35);
+    
+    // Adjust canvas on resize
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+}
+
+// Typewriter Effect
+function initializeTypewriter() {
+    const typewriterElement = document.getElementById('typewriter');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    
+    function typeWriter() {
+        const currentText = typewriterTexts[textIndex];
+        
+        if (isDeleting) {
+            typewriterElement.textContent = currentText.substring(0, charIndex - 1);
+            charIndex--;
+            
+            if (charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % typewriterTexts.length;
+            }
+        } else {
+            typewriterElement.textContent = currentText.substring(0, charIndex + 1);
+            charIndex++;
+            
+            if (charIndex === currentText.length) {
+                isDeleting = true;
+                setTimeout(typeWriter, 2000);
+                return;
             }
         }
         
-        typeWriter();
+        setTimeout(typeWriter, isDeleting ? 50 : 100);
     }
     
-    // Theme Toggle Functionality - Fixed
-    function initThemeToggle() {
-        const themeToggle = document.getElementById('themeToggle');
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        
-        // Set initial theme
-        document.documentElement.setAttribute('data-color-scheme', savedTheme);
-        updateThemeIcon(savedTheme);
-        
-        themeToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            const currentTheme = document.documentElement.getAttribute('data-color-scheme') || 'dark';
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            document.documentElement.setAttribute('data-color-scheme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
-            
-            // Add theme transition effect
-            document.body.style.transition = 'all 0.3s ease';
-            setTimeout(() => {
-                document.body.style.transition = '';
-            }, 300);
-            
-            console.log('Theme changed to:', newTheme);
-        });
-        
-        function updateThemeIcon(theme) {
-            themeToggle.innerHTML = theme === 'dark' ? '☀️' : '🌙';
-        }
-    }
+    typeWriter();
+}
+
+// Sentiment Analysis Implementation
+function initializeSentimentAnalysis() {
+    const analyzeButton = document.getElementById('analyzeSentiment');
+    const sentimentInput = document.getElementById('sentimentInput');
+    const resultDisplay = document.getElementById('sentimentResult');
     
-    // Smooth Scrolling Navigation - Fixed
-    function initSmoothScrolling() {
-        const navLinks = document.querySelectorAll('.nav-link');
-        
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const href = this.getAttribute('href');
-                if (!href || !href.startsWith('#')) return;
-                
-                const targetId = href.substring(1);
-                const targetSection = document.getElementById(targetId);
-                
-                if (targetSection) {
-                    const offsetTop = targetSection.offsetTop - 70; // Account for fixed navbar
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
-                    console.log('Scrolling to section:', targetId);
-                }
-            });
-        });
-        
-        // Update active nav link based on scroll position
-        window.addEventListener('scroll', function() {
-            const sections = document.querySelectorAll('section[id]');
-            const scrollPos = window.scrollY + 100;
-            
-            sections.forEach(section => {
-                const top = section.offsetTop;
-                const bottom = top + section.offsetHeight;
-                const id = section.getAttribute('id');
-                const navLink = document.querySelector(`.nav-link[href="#${id}"]`);
-                
-                if (scrollPos >= top && scrollPos <= bottom) {
-                    navLinks.forEach(link => link.classList.remove('active'));
-                    if (navLink) navLink.classList.add('active');
-                }
-            });
-        });
-    }
+    // Simple sentiment analysis (in a real implementation, you'd use an API)
+    const positiveWords = ['good', 'great', 'excellent', 'awesome', 'fantastic', 'love', 'like', 'amazing', 'wonderful', 'perfect'];
+    const negativeWords = ['bad', 'terrible', 'awful', 'hate', 'dislike', 'horrible', 'worst', 'stupid', 'disgusting', 'annoying'];
     
-    // Animated Skill Bars
-    function initSkillBars() {
-        const skillProgressBars = document.querySelectorAll('.skill-progress');
+    analyzeButton.addEventListener('click', function() {
+        const text = sentimentInput.value.toLowerCase().trim();
         
-        const observerOptions = {
-            threshold: 0.5,
-            rootMargin: '0px 0px -100px 0px'
-        };
-        
-        const skillObserver = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const progressBar = entry.target;
-                    const width = progressBar.getAttribute('data-width');
-                    progressBar.style.setProperty('--target-width', width + '%');
-                    progressBar.classList.add('animate');
-                }
-            });
-        }, observerOptions);
-        
-        skillProgressBars.forEach(bar => {
-            skillObserver.observe(bar);
-        });
-    }
-    
-    // ML Demo Functionality
-    function initMLDemo() {
-        const sentimentInput = document.getElementById('sentimentInput');
-        const analyzeSentimentBtn = document.getElementById('analyzeSentiment');
-        const sentimentResult = document.getElementById('sentimentResult');
-        
-        if (!sentimentInput || !analyzeSentimentBtn || !sentimentResult) {
-            console.log('ML Demo elements not found');
+        if (!text) {
+            resultDisplay.innerHTML = '<div class="error">Please enter some text to analyze.</div>';
             return;
         }
         
-        // Predefined responses for demo purposes
-        const sentimentResponses = {
-            positive: [
-                'amazing', 'excellent', 'great', 'fantastic', 'wonderful', 'awesome',
-                'love', 'perfect', 'brilliant', 'outstanding', 'superb', 'magnificent'
-            ],
-            negative: [
-                'terrible', 'awful', 'horrible', 'bad', 'worst', 'hate',
-                'disappointing', 'poor', 'useless', 'pathetic', 'disgusting'
-            ]
-        };
+        // Simple scoring algorithm
+        let score = 0;
+        const words = text.split(/\s+/);
         
-        analyzeSentimentBtn.addEventListener('click', function() {
-            const text = sentimentInput.value.trim().toLowerCase();
-            
-            if (!text) {
-                showSentimentResult('Please enter some text to analyze.', 'neutral');
-                return;
-            }
-            
-            // Show loading state
-            analyzeSentimentBtn.innerHTML = '<span class="loading"></span> Analyzing...';
-            analyzeSentimentBtn.disabled = true;
-            
-            // Simulate API delay
-            setTimeout(() => {
-                const sentiment = analyzeSentiment(text);
-                showSentimentResult(
-                    `Sentiment: ${sentiment.label} (Confidence: ${sentiment.confidence}%)`,
-                    sentiment.label.toLowerCase()
-                );
-                
-                // Reset button
-                analyzeSentimentBtn.innerHTML = 'Analyze Sentiment';
-                analyzeSentimentBtn.disabled = false;
-            }, 1500);
+        words.forEach(word => {
+            if (positiveWords.some(pw => word.includes(pw))) score++;
+            if (negativeWords.some(nw => word.includes(nw))) score--;
         });
         
-        function analyzeSentiment(text) {
-            let positiveScore = 0;
-            let negativeScore = 0;
-            
-            // Simple keyword-based sentiment analysis for demo
-            sentimentResponses.positive.forEach(word => {
-                if (text.includes(word)) positiveScore += 2;
-            });
-            
-            sentimentResponses.negative.forEach(word => {
-                if (text.includes(word)) negativeScore += 2;
-            });
-            
-            // Add some randomness to make it more realistic
-            const randomFactor = Math.random() * 0.3;
-            positiveScore += randomFactor;
-            negativeScore += randomFactor;
-            
-            let sentiment, confidence;
-            
-            if (positiveScore > negativeScore) {
-                sentiment = 'Positive';
-                confidence = Math.min(95, Math.round(65 + positiveScore * 5));
-            } else if (negativeScore > positiveScore) {
-                sentiment = 'Negative';
-                confidence = Math.min(95, Math.round(65 + negativeScore * 5));
-            } else {
-                sentiment = 'Neutral';
-                confidence = Math.round(50 + Math.random() * 20);
-            }
-            
-            return { label: sentiment, confidence };
+        let sentiment, color, emoji;
+        
+        if (score > 0) {
+            sentiment = 'Positive';
+            color = '#00ff00';
+            emoji = '😊';
+        } else if (score < 0) {
+            sentiment = 'Negative';
+            color = '#ff4444';
+            emoji = '😞';
+        } else {
+            sentiment = 'Neutral';
+            color = '#ffff00';
+            emoji = '😐';
         }
         
-        function showSentimentResult(message, sentiment) {
-            sentimentResult.textContent = message;
-            sentimentResult.className = `demo-result ${sentiment}`;
-            sentimentResult.classList.remove('hidden');
-        }
+        resultDisplay.innerHTML = `
+            <div class="sentiment-result" style="border-left-color: ${color}">
+                <h4>${emoji} Sentiment: <span style="color: ${color}">${sentiment}</span></h4>
+                <p>Confidence Score: ${Math.abs(score)}</p>
+                <p>Analysis: The text appears to have a ${sentiment.toLowerCase()} emotional tone.</p>
+            </div>
+        `;
+        
+        // Add animation
+        resultDisplay.classList.add('fade-in');
+    });
+}
+
+// AI Chatbot Implementation
+function initializeChatbot() {
+    const chatbotToggle = document.getElementById('chatbotToggle');
+    const chatbotContainer = document.getElementById('chatbotContainer');
+    const chatbotClose = document.getElementById('chatbotClose');
+    const chatbotInput = document.getElementById('chatbotInput');
+    const chatbotSend = document.getElementById('chatbotSend');
+    const chatbotMessages = document.getElementById('chatbotMessages');
+    
+    // Predefined responses
+    const responses = {
+        'hello': 'Hi there! I\'m here to help you learn about this portfolio. What would you like to know?',
+        'hi': 'Hello! How can I assist you today?',
+        'skills': 'This portfolio showcases expertise in AI/ML, Python, TensorFlow, PyTorch, NLP, and data science.',
+        'projects': 'The portfolio includes several ML projects: predictive analytics, NLP sentiment analysis, and computer vision applications.',
+        'experience': 'The developer has experience in machine learning, data analysis, and AI model development.',
+        'contact': 'You can reach out through the contact section or connect via LinkedIn and GitHub.',
+        'education': 'Educational background includes computer science studies at Saveetha Engineering College.',
+        'default': 'I\'m here to help! You can ask me about skills, projects, experience, or how to get in touch.'
+    };
+    
+    chatbotToggle.addEventListener('click', () => {
+        chatbotContainer.style.display = chatbotContainer.style.display === 'flex' ? 'none' : 'flex';
+    });
+    
+    chatbotClose.addEventListener('click', () => {
+        chatbotContainer.style.display = 'none';
+    });
+    
+    function sendMessage() {
+        const message = chatbotInput.value.trim();
+        if (!message) return;
+        
+        // Add user message
+        addMessage(message, 'user');
+        chatbotInput.value = '';
+        
+        // Show typing indicator
+        setTimeout(() => {
+            const response = getBotResponse(message);
+            addMessage(response, 'bot');
+        }, 1000);
     }
     
-    // Performance Chart Initialization
-    function initPerformanceChart() {
-        const ctx = document.getElementById('performanceChart');
-        if (!ctx) return;
+    function addMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${sender}-message`;
+        messageDiv.textContent = text;
+        chatbotMessages.appendChild(messageDiv);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+    
+    function getBotResponse(message) {
+        const lowerMessage = message.toLowerCase();
         
-        // Sample ML model performance data
-        const modelData = {
-            labels: ['Accuracy', 'Precision', 'Recall', 'F1-Score', 'AUC-ROC'],
-            datasets: [{
-                label: 'BERT Sentiment Model',
-                data: [94, 92, 89, 90, 96],
-                backgroundColor: '#1FB8CD',
-                borderColor: '#1FB8CD',
-                borderWidth: 2,
-                fill: false
-            }, {
-                label: 'Random Forest CKD',
-                data: [87, 85, 88, 86, 91],
-                backgroundColor: '#FFC185',
-                borderColor: '#FFC185',
-                borderWidth: 2,
-                fill: false
-            }, {
-                label: 'XGBoost Forecasting',
-                data: [91, 89, 92, 90, 94],
-                backgroundColor: '#B4413C',
-                borderColor: '#B4413C',
-                borderWidth: 2,
-                fill: false
-            }]
-        };
+        for (const [key, response] of Object.entries(responses)) {
+            if (lowerMessage.includes(key)) {
+                return response;
+            }
+        }
         
+        return responses.default;
+    }
+    
+    chatbotSend.addEventListener('click', sendMessage);
+    chatbotInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
+    });
+}
+
+// Charts Implementation
+function initializeCharts() {
+    const ctx = document.getElementById('performanceChart')?.getContext('2d');
+    
+    if (ctx) {
         new Chart(ctx, {
-            type: 'radar',
-            data: modelData,
+            type: 'line',
+            data: {
+                labels: ['Epoch 1', 'Epoch 2', 'Epoch 3', 'Epoch 4', 'Epoch 5'],
+                datasets: [{
+                    label: 'Model Accuracy',
+                    data: [0.65, 0.75, 0.82, 0.88, 0.93],
+                    borderColor: '#00ffff',
+                    backgroundColor: 'rgba(0, 255, 255, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }, {
+                    label: 'Validation Accuracy',
+                    data: [0.60, 0.70, 0.78, 0.84, 0.89],
+                    borderColor: '#ff00ff',
+                    backgroundColor: 'rgba(255, 0, 255, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
             options: {
                 responsive: true,
-                maintainAspectRatio: false,
                 plugins: {
-                    title: {
-                        display: true,
-                        text: 'ML Model Performance Comparison',
-                        color: '#f5f5f5',
-                        font: {
-                            size: 16,
-                            weight: 'bold'
-                        }
-                    },
                     legend: {
                         labels: {
-                            color: '#f5f5f5',
-                            usePointStyle: true
+                            color: '#ffffff'
                         }
                     }
                 },
                 scales: {
-                    r: {
+                    y: {
                         beginAtZero: true,
-                        max: 100,
+                        max: 1,
                         ticks: {
-                            color: '#a7a9a9',
-                            stepSize: 20
-                        },
-                        pointLabels: {
-                            color: '#f5f5f5',
-                            font: {
-                                size: 12
-                            }
+                            color: '#ffffff'
                         },
                         grid: {
-                            color: 'rgba(167, 169, 169, 0.3)'
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#ffffff'
                         },
-                        angleLines: {
-                            color: 'rgba(167, 169, 169, 0.3)'
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
                         }
                     }
-                },
-                elements: {
-                    point: {
-                        radius: 6,
-                        hoverRadius: 8
-                    },
-                    line: {
-                        borderWidth: 3
-                    }
                 }
             }
         });
     }
+}
+
+// Custom Cursor
+function initializeCustomCursor() {
+    let mouseX = 0, mouseY = 0;
     
-    // Chatbot Functionality - Fixed
-    function initChatbot() {
-        const chatbotToggle = document.getElementById('chatbotToggle');
-        const chatbotWindow = document.getElementById('chatbotWindow');
-        const chatbotClose = document.getElementById('chatbotClose');
-        const chatbotInput = document.getElementById('chatbotInputField');
-        const chatbotSend = document.getElementById('chatbotSend');
-        const chatbotMessages = document.getElementById('chatbotMessages');
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
         
-        if (!chatbotToggle || !chatbotWindow || !chatbotClose) {
-            console.log('Chatbot elements not found');
-            return;
-        }
-        
-        // Chatbot responses
-        const responses = {
-            skills: "Pragatheesvaran is proficient in Python, TensorFlow, PyTorch, BERT, and various ML libraries. He specializes in NLP, forecasting, and statistical analysis with hands-on experience in real-world projects.",
-            projects: "He has worked on 4 major projects including demand forecasting with PySpark, Tamil sentiment analysis using BERT, chronic kidney disease detection, and e-commerce sales forecasting. Each project demonstrates practical application of ML techniques.",
-            experience: "He completed an internship at Axias Global Automation Group focusing on operational analytics and has various certifications from Google and Microsoft. Currently pursuing B.Tech in AI/ML.",
-            contact: "You can reach Pragatheesvaran at pragatheesvaranab@gmail.com or connect via LinkedIn at pragatheesvaran-ab. Feel free to check out his GitHub projects at github.com/praga-16",
-            education: "He is currently pursuing B.Tech in Artificial Intelligence and Machine Learning from Saveetha Engineering College, Chennai (2021-2025) with a CGPA of 7.5/10.",
-            default: "I can help you learn about Pragatheesvaran's skills, projects, experience, education, or contact information. What would you like to know?"
-        };
-        
-        let isChatbotOpen = false;
-        
-        // Make sure chatbot starts closed
-        chatbotWindow.classList.add('hidden');
-        
-        chatbotToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            isChatbotOpen = !isChatbotOpen;
-            chatbotWindow.classList.toggle('hidden', !isChatbotOpen);
-            
-            if (isChatbotOpen) {
-                chatbotInput.focus();
-                console.log('Chatbot opened');
-            } else {
-                console.log('Chatbot closed');
-            }
-        });
-        
-        chatbotClose.addEventListener('click', function(e) {
-            e.preventDefault();
-            isChatbotOpen = false;
-            chatbotWindow.classList.add('hidden');
-            console.log('Chatbot closed via close button');
-        });
-        
-        chatbotSend.addEventListener('click', sendMessage);
-        chatbotInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
-        
-        function sendMessage() {
-            const message = chatbotInput.value.trim();
-            if (!message) return;
-            
-            // Add user message
-            addMessage(message, 'user');
-            chatbotInput.value = '';
-            
-            // Show typing indicator
-            showTypingIndicator();
-            
-            // Generate bot response
-            setTimeout(() => {
-                hideTypingIndicator();
-                const response = generateResponse(message);
-                addMessage(response, 'bot');
-            }, 1000);
-        }
-        
-        function addMessage(message, sender) {
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('chatbot-message');
-            messageElement.classList.add(sender === 'user' ? 'user-message' : 'bot-message');
-            messageElement.textContent = message;
-            
-            chatbotMessages.appendChild(messageElement);
-            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-        }
-        
-        function generateResponse(message) {
-            const lowerMessage = message.toLowerCase();
-            
-            if (lowerMessage.includes('skill') || lowerMessage.includes('technology') || lowerMessage.includes('programming')) {
-                return responses.skills;
-            } else if (lowerMessage.includes('project') || lowerMessage.includes('work') || lowerMessage.includes('portfolio')) {
-                return responses.projects;
-            } else if (lowerMessage.includes('experience') || lowerMessage.includes('internship') || lowerMessage.includes('job')) {
-                return responses.experience;
-            } else if (lowerMessage.includes('contact') || lowerMessage.includes('email') || lowerMessage.includes('reach')) {
-                return responses.contact;
-            } else if (lowerMessage.includes('education') || lowerMessage.includes('college') || lowerMessage.includes('degree')) {
-                return responses.education;
-            } else if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
-                return "Hi! I'm Pragatheesvaran's AI assistant. I can help you learn more about his skills, projects, and experience in AI/ML. What would you like to know?";
-            } else {
-                return responses.default;
-            }
-        }
-        
-        function showTypingIndicator() {
-            const typingElement = document.createElement('div');
-            typingElement.classList.add('chatbot-message', 'bot-message', 'typing-indicator');
-            typingElement.innerHTML = '<span class="loading"></span> Typing...';
-            chatbotMessages.appendChild(typingElement);
-            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-        }
-        
-        function hideTypingIndicator() {
-            const typingIndicator = chatbotMessages.querySelector('.typing-indicator');
-            if (typingIndicator) {
-                typingIndicator.remove();
-            }
-        }
-    }
+        // Update cursor position
+        document.body.style.setProperty('--cursor-x', mouseX + 'px');
+        document.body.style.setProperty('--cursor-y', mouseY + 'px');
+    });
+}
+
+// Scroll Animations
+function initializeScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
     
-    // Contact Form Handling
-    function initContactForm() {
-        const contactForm = document.getElementById('contactForm');
-        
-        if (!contactForm) return;
-        
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = {
-                name: document.getElementById('contactName').value,
-                email: document.getElementById('contactEmail').value,
-                subject: document.getElementById('contactSubject').value,
-                message: document.getElementById('contactMessage').value
-            };
-            
-            // Simulate form submission
-            const submitBtn = contactForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            
-            submitBtn.innerHTML = '<span class="loading"></span> Sending...';
-            submitBtn.disabled = true;
-            
-            setTimeout(() => {
-                // Show success message
-                showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
-                
-                // Reset form
-                contactForm.reset();
-                
-                // Reset button
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }, 2000);
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+            }
         });
-    }
+    }, observerOptions);
     
-    // Scroll Animations
-    function initScrollAnimations() {
-        const animateElements = document.querySelectorAll('.animate-on-scroll, .project-card, .skill-category, .timeline-item');
-        
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate');
-                }
+    // Observe all sections
+    document.querySelectorAll('section, .demo-card').forEach(el => {
+        observer.observe(el);
+    });
+}
+
+// Theme Toggle (though it's already dark)
+function initializeThemeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
+    
+    themeToggle.addEventListener('click', () => {
+        // Toggle between dark variations
+        document.documentElement.classList.toggle('ultra-dark');
+    });
+}
+
+// Smooth Scrolling for Navigation
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
             });
-        }, observerOptions);
-        
-        animateElements.forEach(element => {
-            element.classList.add('animate-on-scroll');
-            observer.observe(element);
-        });
-    }
-    
-    // Utility Functions
-    function showNotification(message, type = 'info') {
-        // Create notification element
-        const notification = document.createElement('div');
-        notification.className = `notification notification--${type}`;
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--color-surface);
-            color: var(--color-text);
-            padding: 16px 20px;
-            border-radius: 8px;
-            border: 1px solid var(--color-border);
-            box-shadow: var(--shadow-lg);
-            z-index: 10000;
-            max-width: 400px;
-            animation: slideIn 0.3s ease-out;
-        `;
-        
-        if (type === 'success') {
-            notification.style.borderColor = 'var(--color-success)';
-            notification.style.backgroundColor = 'var(--color-bg-3)';
-        } else if (type === 'error') {
-            notification.style.borderColor = 'var(--color-error)';
-            notification.style.backgroundColor = 'var(--color-bg-4)';
-        }
-        
-        notification.textContent = message;
-        document.body.appendChild(notification);
-        
-        // Remove notification after 5 seconds
-        setTimeout(() => {
-            notification.style.animation = 'slideOut 0.3s ease-in forwards';
-            setTimeout(() => {
-                if (document.body.contains(notification)) {
-                    document.body.removeChild(notification);
-                }
-            }, 300);
-        }, 5000);
-    }
-    
-    // Add slide animations for notifications
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-        @keyframes slideOut {
-            from {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-        }
-    `;
-    document.head.appendChild(style);
-    
-    // Initialize navbar background on scroll
-    window.addEventListener('scroll', function() {
-        const navbar = document.querySelector('.navbar');
-        if (navbar) {
-            if (window.scrollY > 50) {
-                navbar.style.background = 'rgba(19, 52, 59, 0.98)';
-            } else {
-                navbar.style.background = 'rgba(19, 52, 59, 0.95)';
-            }
         }
     });
-    
-    // Add project card interactions - Fixed
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach(card => {
-        const buttons = card.querySelectorAll('button');
-        buttons.forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                const projectTitle = card.querySelector('h3').textContent;
-                if (this.textContent.includes('Demo')) {
-                    showNotification(`Demo for "${projectTitle}" would open here. This is a portfolio demonstration.`, 'info');
-                } else if (this.textContent.includes('GitHub')) {
-                    showNotification(`GitHub repository for "${projectTitle}" would open here. Check out github.com/praga-16`, 'info');
-                }
-            });
-        });
-    });
-    
-    console.log('Portfolio website initialized successfully!');
 });
+
+// Window Resize Handler
+window.addEventListener('resize', () => {
+    if (particlesLoaded) {
+        pJSDom[0].pJS.fn.vendors.destroypJS();
+        pJSDom = [];
+        initializeParticles();
+    }
+});
+
+// Performance Optimization
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Export functions for global access
+window.portfolioFunctions = {
+    initializeComponents,
+    initializeParticles,
+    initializeMatrixRain
+};
