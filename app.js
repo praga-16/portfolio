@@ -722,57 +722,51 @@ document.addEventListener('DOMContentLoaded', function() {
 // Contact Form (with Google Sheets integration)
 function initContactForm() {
     const contactForm = document.getElementById('contactForm');
-
     if (!contactForm) return;
 
-    contactForm.addEventListener('submit', function(e) {
+    contactForm.addEventListener('submit', function (e) {
         e.preventDefault();
-        e.stopPropagation();
 
-        try {
-            const formData = {
-                name: document.getElementById('contactName').value,
-                email: document.getElementById('contactEmail').value,
-                subject: document.getElementById('contactSubject').value,
-                message: document.getElementById('contactMessage').value
-            };
+        const formData = {
+            name: document.getElementById('contactName').value,
+            email: document.getElementById('contactEmail').value,
+            subject: document.getElementById('contactSubject').value,
+            message: document.getElementById('contactMessage').value
+        };
 
-            const submitBtn = contactForm.querySelector('button[type="submit"]');
-            const originalHTML = submitBtn.innerHTML;
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
 
-            submitBtn.innerHTML = '<span>TRANSMITTING...</span>';
-            submitBtn.disabled = true;
+        submitBtn.innerHTML = 'Sending...';
+        submitBtn.disabled = true;
 
-            fetch('https://script.google.com/macros/s/AKfycbzGQl76_dFmxAKQ_oRogInVJxwAPuIxbB505cbElurhEtAE04CIvuywFUOJjFFOgDzmSw/exec', {
-                method: 'POST',
-                body: JSON.stringify(formData),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    showNotification('[SUCCESS] Message saved to Google Sheets!', 'success');
-                    contactForm.reset();
-                } else {
-                    showNotification('[ERROR] Failed to submit: ' + data.message, 'error');
-                }
-                submitBtn.innerHTML = originalHTML;
-                submitBtn.disabled = false;
-            })
-            .catch(error => {
-                console.error(error);
-                showNotification('[ERROR] Network or script issue', 'error');
-                submitBtn.innerHTML = originalHTML;
-                submitBtn.disabled = false;
-            });
-
-        } catch (error) {
-            console.log('Contact form error:', error);
-        }
+        fetch("https://script.google.com/macros/s/AKfycbyXPZ96qMwDEyEFDrEPd19az1kz-8wJPvLaDwQT7XGGVQA6nfQXPlq8rIvGlrNv2ukwYg/exec", {
+            method: "POST",
+            body: JSON.stringify(formData),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === "success") {
+                showNotification("✅ Message sent successfully!", "success");
+                contactForm.reset();
+            } else {
+                showNotification("❌ Failed to send: " + data.message, "error");
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            showNotification("❌ Network or script issue.", "error");
+        })
+        .finally(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        });
     });
 }
+
 
 
     // Button Ripple Effects
