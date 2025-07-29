@@ -720,49 +720,39 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Contact Form (Fixed)
-    function initContactForm() {
-    const contactForm = document.getElementById('contactForm');
-    if (!contactForm) return;
+function initContactForm() {
+  const contactForm = document.getElementById('contactForm');
+  if (!contactForm) return;
 
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
 
-        const formData = {
-            name: document.getElementById('contactName').value,
-            email: document.getElementById('contactEmail').value,
-            subject: document.getElementById('contactSubject').value,
-            message: document.getElementById('contactMessage').value
-        };
+    const formData = {
+      name: document.getElementById('contactName').value,
+      email: document.getElementById('contactEmail').value,
+      subject: document.getElementById('contactSubject').value,
+      message: document.getElementById('contactMessage').value
+    };
 
-        const endpoint = 'https://script.google.com/macros/s/AKfycbzL_1z9Uw_trLsk_CQhJeeVJBT-R1w-vj3RfJCyZQEYm52Kob9XFsfY-IAomw5uWRCB2g/exec'; // ← Replace this
-        const submitBtn = contactForm.querySelector('button[type="submit"]');
-        const originalHTML = submitBtn.innerHTML;
-
-        submitBtn.innerHTML = '<span>TRANSMITTING...</span>';
-        submitBtn.disabled = true;
-
-        fetch(endpoint, {
-            method: 'POST',
-            mode: 'no-cors',  // Required for cross-origin
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        })
-        .then(() => {
-            showNotification('[SUCCESS] Data sent to Google Sheets.', 'success');
-            contactForm.reset();
-            submitBtn.innerHTML = originalHTML;
-            submitBtn.disabled = false;
-        })
-        .catch(error => {
-            console.error('Form submission error:', error);
-            showNotification('[ERROR] Failed to submit. Try again.', 'error');
-            submitBtn.innerHTML = originalHTML;
-            submitBtn.disabled = false;
-        });
+    fetch('https://script.google.com/macros/s/AKfycbzL_1z9Uw_trLsk_CQhJeeVJBT-R1w-vj3RfJCyZQEYm52Kob9XFsfY-IAomw5uWRCB2g/exec', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      showNotification('[SUCCESS] Message transmitted!', 'success');
+      contactForm.reset();
+    })
+    .catch(error => {
+      console.error('Submission error:', error);
+      showNotification('[ERROR] Submission failed.', 'error');
     });
+  });
 }
+
 
     
     // Button Ripple Effects
