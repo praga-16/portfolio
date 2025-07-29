@@ -1048,7 +1048,13 @@ body::before {
   animation: ripple 0.6s linear;
   pointer-events: none;
 }
-
+/* Center the contact card in the contact section */
+.contact-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px; /* Adjust as needed */
+}
 /* Hero Section */
 .hero {
   min-height: 100vh;
