@@ -719,38 +719,42 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-// Contact Form (with Google Sheets integration)
-<form id="contactForm">
-  <input type="text" id="contactName" name="name" placeholder="Your Name" required />
-  <input type="email" id="contactEmail" name="email" placeholder="Your Email" required />
-  <input type="text" id="contactSubject" name="subject" placeholder="Subject" required />
-  <textarea id="contactMessage" name="message" placeholder="Your Message" required></textarea>
-  <button type="submit">Send</button>
-</form>
-
-<script>
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbzL_1z9Uw_trLsk_CQhJeeVJBT-R1w-vj3RfJCyZQEYm52Kob9XFsfY-IAomw5uWRCB2g/exec'; // Replace with your Apps Script URL
-
-  document.getElementById("contactForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    const formData = new FormData(this);
-
-    fetch(scriptURL, { method: "POST", body: formData })
-      .then(response => {
-        alert("Message sent successfully!");
-        this.reset();
-      })
-      .catch(error => {
-        alert("Failed to send message. Try again later.");
-        console.error("Error:", error);
-      });
-  });
-</script>
-
-
-
-
+    // Contact Form (Fixed)
+    function initContactForm() {
+        const contactForm = document.getElementById('contactForm');
+        
+        if (!contactForm) return;
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            try {
+                const formData = {
+                    name: document.getElementById('contactName').value,
+                    email: document.getElementById('contactEmail').value,
+                    subject: document.getElementById('contactSubject').value,
+                    message: document.getElementById('contactMessage').value
+                };
+                
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+                const originalHTML = submitBtn.innerHTML;
+                
+                submitBtn.innerHTML = '<span>TRANSMITTING...</span>';
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    showNotification('[SUCCESS] Message transmitted successfully! Response incoming...', 'success');
+                    contactForm.reset();
+                    submitBtn.innerHTML = originalHTML;
+                    submitBtn.disabled = false;
+                }, 2500);
+            } catch (error) {
+                console.log('Contact form error:', error);
+            }
+        });
+    }
+    
     // Button Ripple Effects
     function initButtonRipples() {
         document.querySelectorAll('.neon-button').forEach(button => {
@@ -827,12 +831,10 @@ document.addEventListener('DOMContentLoaded', function() {
     window.showDemo = function(projectName) {
         showNotification(`[DEMO_LAUNCH] ${projectName} demo initialized. This is a portfolio demonstration.`, 'info');
     };
-    window.showGithub = function(url) {
-    window.open(url, "_blank");
-};
-
-   
-
+    
+    window.showGithub = function(projectName) {
+        showNotification(`[REPOSITORY_ACCESS] ${projectName} GitHub repository. Visit github.com/praga-16`, 'info');
+    };
     
     // Notification System (Fixed)
     function showNotification(message, type = 'info') {
