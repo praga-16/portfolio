@@ -720,52 +720,33 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
 // Contact Form (with Google Sheets integration)
-function initContactForm() {
-    const contactForm = document.getElementById('contactForm');
-    if (!contactForm) return;
+<form id="contactForm">
+  <input type="text" id="contactName" name="name" placeholder="Your Name" required />
+  <input type="email" id="contactEmail" name="email" placeholder="Your Email" required />
+  <input type="text" id="contactSubject" name="subject" placeholder="Subject" required />
+  <textarea id="contactMessage" name="message" placeholder="Your Message" required></textarea>
+  <button type="submit">Send</button>
+</form>
 
-    contactForm.addEventListener('submit', function (e) {
-        e.preventDefault();
+<script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbzL_1z9Uw_trLsk_CQhJeeVJBT-R1w-vj3RfJCyZQEYm52Kob9XFsfY-IAomw5uWRCB2g/exec'; // Replace with your Apps Script URL
 
-        const formData = {
-            name: document.getElementById('contactName').value,
-            email: document.getElementById('contactEmail').value,
-            subject: document.getElementById('contactSubject').value,
-            message: document.getElementById('contactMessage').value
-        };
+  document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault();
 
-        const submitBtn = contactForm.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
+    const formData = new FormData(this);
 
-        submitBtn.innerHTML = 'Sending...';
-        submitBtn.disabled = true;
-
-        fetch("https://script.google.com/macros/s/AKfycbyXPZ96qMwDEyEFDrEPd19az1kz-8wJPvLaDwQT7XGGVQA6nfQXPlq8rIvGlrNv2ukwYg/exec", {
-            method: "POST",
-            body: JSON.stringify(formData),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.status === "success") {
-                showNotification("✅ Message sent successfully!", "success");
-                contactForm.reset();
-            } else {
-                showNotification("❌ Failed to send: " + data.message, "error");
-            }
-        })
-        .catch(err => {
-            console.error(err);
-            showNotification("❌ Network or script issue.", "error");
-        })
-        .finally(() => {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        });
-    });
-}
+    fetch(scriptURL, { method: "POST", body: formData })
+      .then(response => {
+        alert("Message sent successfully!");
+        this.reset();
+      })
+      .catch(error => {
+        alert("Failed to send message. Try again later.");
+        console.error("Error:", error);
+      });
+  });
+</script>
 
 
 
