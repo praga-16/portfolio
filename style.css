@@ -78,6 +78,13 @@
   --color-error-rgb: 192, 21, 47;
   --color-warning-rgb: 168, 75, 47;
   --color-info-rgb: 98, 108, 113;
+.contact-content {
+  display: flex;
+  justify-content: center; /* horizontally center */
+  align-items: center;     /* vertically center if needed */
+  flex-wrap: wrap;
+  gap: 2rem;
+}
 
   /* Typography */
   --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system,
