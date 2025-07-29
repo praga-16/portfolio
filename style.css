@@ -997,6 +997,13 @@ body::before {
 .nav-link.active::after {
   width: 100%;
 }
+.contact-content {
+  display: flex;
+  justify-content: center; /* horizontally center */
+  align-items: center;     /* vertically center if needed */
+  flex-wrap: wrap;
+  gap: 2rem;
+}
 
 /* Neon Buttons */
 .neon-button {
