@@ -197,10 +197,11 @@ document.addEventListener('DOMContentLoaded', function() {
     function initTypewriter() {
         const texts = [
             'AI/ML ENGINEER',
+            'SOFTWARE DEVELOPER',
+            'DATA ANALYST',
             'DATA SCIENTIST',
             'PYTHON DEVELOPER',
-            'NLP SPECIALIST',
-            'DEEP LEARNING EXPERT'
+
         ];
         
         let textIndex = 0;
